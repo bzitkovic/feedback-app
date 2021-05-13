@@ -1,5 +1,5 @@
 # feedback-app
-Purpose of application is to give feedback for the class.
+The purpose of the application is to give feedback for the class.
 
 Tehnology used:
 - Python
