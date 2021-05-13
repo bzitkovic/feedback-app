@@ -1,0 +1,386 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.1
+-- Dumped by pg_dump version 13.1
+
+-- Started on 2021-05-13 21:00:35
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3030 (class 1262 OID 33172)
+-- Name: class_grading; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE class_grading WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE = 'Croatian_Croatia.1250';
+
+
+ALTER DATABASE class_grading OWNER TO postgres;
+
+\connect class_grading
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 201 (class 1259 OID 33175)
+-- Name: feedback; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.feedback (
+    id integer NOT NULL,
+    professor character varying(150),
+    subject character varying(150),
+    rating integer,
+    comments text
+);
+
+
+ALTER TABLE public.feedback OWNER TO postgres;
+
+--
+-- TOC entry 200 (class 1259 OID 33173)
+-- Name: feedback_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.feedback_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.feedback_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3031 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.feedback_id_seq OWNED BY public.feedback.id;
+
+
+--
+-- TOC entry 205 (class 1259 OID 33200)
+-- Name: professor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.professor (
+    id integer NOT NULL,
+    name character varying,
+    surname character varying
+);
+
+
+ALTER TABLE public.professor OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 33198)
+-- Name: professor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.professor_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.professor_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3032 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: professor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.professor_id_seq OWNED BY public.professor.id;
+
+
+--
+-- TOC entry 207 (class 1259 OID 33211)
+-- Name: subject; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.subject (
+    id integer NOT NULL,
+    name character varying
+);
+
+
+ALTER TABLE public.subject OWNER TO postgres;
+
+--
+-- TOC entry 206 (class 1259 OID 33209)
+-- Name: subject_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.subject_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.subject_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3033 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: subject_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.subject_id_seq OWNED BY public.subject.id;
+
+
+--
+-- TOC entry 203 (class 1259 OID 33190)
+-- Name: user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."user" (
+    id integer NOT NULL,
+    username character varying(150),
+    password character varying(150)
+);
+
+
+ALTER TABLE public."user" OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 33188)
+-- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3034 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
+
+
+--
+-- TOC entry 2871 (class 2604 OID 33178)
+-- Name: feedback id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback ALTER COLUMN id SET DEFAULT nextval('public.feedback_id_seq'::regclass);
+
+
+--
+-- TOC entry 2873 (class 2604 OID 33203)
+-- Name: professor id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor ALTER COLUMN id SET DEFAULT nextval('public.professor_id_seq'::regclass);
+
+
+--
+-- TOC entry 2874 (class 2604 OID 33214)
+-- Name: subject id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subject ALTER COLUMN id SET DEFAULT nextval('public.subject_id_seq'::regclass);
+
+
+--
+-- TOC entry 2872 (class 2604 OID 33193)
+-- Name: user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+
+
+--
+-- TOC entry 3018 (class 0 OID 33175)
+-- Dependencies: 201
+-- Data for Name: feedback; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (1, 'Bača', 'si', 8, 'He''s good');
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (2, 'Rabuzin', 'sppi', 7, 'He was good');
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (5, '<Professor 2>', 'si', 10, 'aa');
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (6, '<Professor 2>', 'si', 10, 'aa');
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (7, '<Professor 2>', 'si', 10, 'ra');
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (8, '<Professor 2>', 'si', 10, 'ra');
+INSERT INTO public.feedback (id, professor, subject, rating, comments) VALUES (9, 'Bača', 'si', 10, 'aa');
+
+
+--
+-- TOC entry 3022 (class 0 OID 33200)
+-- Dependencies: 205
+-- Data for Name: professor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.professor (id, name, surname) VALUES (1, 'Kornelije ', 'Rabuzin');
+INSERT INTO public.professor (id, name, surname) VALUES (2, 'Miroslav', 'Bača');
+INSERT INTO public.professor (id, name, surname) VALUES (3, 'Alen', 'Lovrenčić');
+INSERT INTO public.professor (id, name, surname) VALUES (4, 'Nikolina', 'Žajdela Hrustek');
+INSERT INTO public.professor (id, name, surname) VALUES (5, 'Neven', 'Vrček');
+INSERT INTO public.professor (id, name, surname) VALUES (6, 'Jasminka', 'Dobša');
+
+
+--
+-- TOC entry 3024 (class 0 OID 33211)
+-- Dependencies: 207
+-- Data for Name: subject; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.subject (id, name) VALUES (1, 'SI');
+INSERT INTO public.subject (id, name) VALUES (2, 'SPIS');
+INSERT INTO public.subject (id, name) VALUES (3, 'SPPI');
+INSERT INTO public.subject (id, name) VALUES (4, 'FOBP');
+INSERT INTO public.subject (id, name) VALUES (5, 'SMI');
+INSERT INTO public.subject (id, name) VALUES (6, 'OI2');
+
+
+--
+-- TOC entry 3020 (class 0 OID 33190)
+-- Dependencies: 203
+-- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."user" (id, username, password) VALUES (1, 'user', 'user');
+INSERT INTO public."user" (id, username, password) VALUES (2, 'admin', 'admin');
+INSERT INTO public."user" (id, username, password) VALUES (3, 'bzitkovic', '123');
+
+
+--
+-- TOC entry 3035 (class 0 OID 0)
+-- Dependencies: 200
+-- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.feedback_id_seq', 9, true);
+
+
+--
+-- TOC entry 3036 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: professor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.professor_id_seq', 6, true);
+
+
+--
+-- TOC entry 3037 (class 0 OID 0)
+-- Dependencies: 206
+-- Name: subject_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.subject_id_seq', 6, true);
+
+
+--
+-- TOC entry 3038 (class 0 OID 0)
+-- Dependencies: 202
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.user_id_seq', 3, true);
+
+
+--
+-- TOC entry 2876 (class 2606 OID 33183)
+-- Name: feedback feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2882 (class 2606 OID 33208)
+-- Name: professor professor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.professor
+    ADD CONSTRAINT professor_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2884 (class 2606 OID 33221)
+-- Name: subject subject_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subject
+    ADD CONSTRAINT subject_name_key UNIQUE (name);
+
+
+--
+-- TOC entry 2886 (class 2606 OID 33219)
+-- Name: subject subject_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.subject
+    ADD CONSTRAINT subject_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2878 (class 2606 OID 33195)
+-- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2880 (class 2606 OID 33197)
+-- Name: user user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_username_key UNIQUE (username);
+
+
+-- Completed on 2021-05-13 21:00:35
+
+--
+-- PostgreSQL database dump complete
+--
+
